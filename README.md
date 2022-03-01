@@ -1,14 +1,39 @@
-# Autograding Example: Java
-This example project is written in Java, and tested with Gradle/JUnit.
+# 課題 3-2
+Switch文
 
-### The assignment
-The tests are currently failing because of an output mismatch. Fixing the `System.out.println` in the main method will make the tests green.
+### 課題の説明
+キーボードから繰り返し整数を受けとり、数値に応じて下記を表示するプログラムを作成しなさい。
+ただし、繰り返しは3回で終了させること。
 
-### Setup command
-N/A
+|数値| 表示        |
+|---|-----------|
+|1| グー        |
+|2| チョキ       |
+|3| パー        |
+|それ以外| 不適切な入力です  |
 
-### Run command
-`gradle test`
+### プログラムの雛形
+```java
+public class Prog32 {
 
-### Notes
-- The JDK is installed on GitHub Actions machines, so you're also able to directly invoke `javac`, `java`, or any other CLI command included in the JDK. 
+	public static void main(String[] args) {
+		int input;
+		java.util.Scanner sc = new java.util.Scanner(System.in);
+		// ここからプログラムを追加する
+
+		System.out.println("プログラムを終了します");
+	}
+
+}
+```
+
+### 実行例
+```
+数値を入力してください: 1
+グー
+数値を入力してください: 4
+不適切な入力です
+数値を入力してください: 2
+パー
+プログラムを終了します
+```
