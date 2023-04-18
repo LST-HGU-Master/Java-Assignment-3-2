@@ -5,7 +5,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import java.io.*;
-
+/**
+ * @version (20230417)
+ *   supporting both println and print("\n") on Windows
+ **/
 public class Prog32Test {
     InputStream originalIn;
     PrintStream originalOut;
@@ -20,41 +23,40 @@ public class Prog32Test {
         //modify binding
         bos = new ByteArrayOutputStream();
         System.setOut(new PrintStream(bos));
-        
+
         in = new StandardInputStream();
         System.setIn(in);
     }
-    
+
     @AfterEach
     void after() {
-       System.setOut(originalOut);
-       // System.setIn(new BufferedInputStream(new FileInputStream(FileDescriptor.in)));
-       System.setIn(originalIn);
+        System.setOut(originalOut);
+        System.setIn(originalIn);
     }
-    
+
     @Test
     public void testEndThreeTimes()
     {
-       // action
-       in.inputln("2");
-       in.inputln("2");
-       in.inputln("2");
-       in.inputln("2"); // this is for avoiding exception(error) on unit test
-       in.inputln("2"); // this is for avoiding exception(error) on unit test
-       Prog32.main(null);
+        // action
+        in.inputln("2");
+        in.inputln("2");
+        in.inputln("2");
+        in.inputln("2"); // this is for avoiding exception(error) on unit test
+        in.inputln("2"); // this is for avoiding exception(error) on unit test
+        Prog32.main(null);
 
-       // assertion
-       String[] prints = bos.toString().split(System.lineSeparator());
-       try {
+        // assertion
+        String[] prints = bos.toString().split("\r\n|\n");
+        try {
             assertEquals(4, prints.length, "繰り返し回数が指定以外です!");
             assertTrue(prints[prints.length - 1].contains("プログラムを終了します"),
-                       "【最優先】「プログラムを終了します」の一文が無い、又は文字が完全一致しません!"
+                "【最優先】「プログラムを終了します」の一文が無い、又は文字が完全一致しません!"
             );
             assertFalse(prints[prints.length - 2].contains("パー"));
-       } catch (AssertionError err) {
+        } catch (AssertionError err) {
             after();
             throw err;
-       }
+        }
     }
 
     @Test
@@ -67,7 +69,7 @@ public class Prog32Test {
         Prog32.main(null);
 
         // assertion
-        String[] prints = bos.toString().split(System.lineSeparator());
+        String[] prints = bos.toString().split("\r\n|\n");
         try {
             assertTrue(prints[prints.length - 2].contains("グー"));
             assertFalse(prints[prints.length - 2].contains("チョキ"));
@@ -89,7 +91,7 @@ public class Prog32Test {
         Prog32.main(null);
 
         // assertion
-        String[] prints = bos.toString().split(System.lineSeparator());
+        String[] prints = bos.toString().split("\r\n|\n");
         try {
             assertTrue(prints[prints.length - 2].contains("チョキ"));
             assertFalse(prints[prints.length - 2].contains("グー"));
@@ -111,7 +113,7 @@ public class Prog32Test {
         Prog32.main(null);
 
         // assertion
-        String[] prints = bos.toString().split(System.lineSeparator());
+        String[] prints = bos.toString().split("\r\n|\n");
         try {
             assertTrue(prints[prints.length - 2].contains("パー"));
             assertFalse(prints[prints.length - 2].contains("グー"));
@@ -133,7 +135,7 @@ public class Prog32Test {
         Prog32.main(null);
 
         // assertion
-        String[] prints = bos.toString().split(System.lineSeparator());
+        String[] prints = bos.toString().split("\r\n|\n");
         try {
             assertTrue(prints[prints.length - 2].contains("不適切な入力です"));
             assertFalse(prints[prints.length - 2].contains("グー"));
