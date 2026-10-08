@@ -7,7 +7,7 @@ import java.io.*;
  * @version (20230417)
  *     supporting both println and print("\n") on Windows
  * @version (20261008) 
- *     revised 1) testEndThreeTimes for println miss, 2) using output.contains(...) 
+ *     1) revised  testEndThreeTimes for println miss, 2) using output.contains(...)  
  **/
 public class Prog32Test {
     InputStream originalIn;
